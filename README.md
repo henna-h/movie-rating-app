@@ -1,4 +1,4 @@
-# movie-app
+# movie-rating-app
 
 Ominaisuudet:
 
