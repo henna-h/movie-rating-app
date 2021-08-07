@@ -1,8 +1,12 @@
 <!doctype html>
 <h1>Movie Rating App</h1>
+
+<span>
 <a href="/">Home</a>
-<p>You are logged in as {{ session.username }}</p>
-<a href="/logout">Log Out</a>
+    <a href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
+    <a href="/logout">Log Out</a>
+</span>
+
 <hr>
 {% block content %}{% endblock %}
 <hr>

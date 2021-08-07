@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import redirect, render_template, request, session, flash
+from flask import redirect, render_template, request, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -73,3 +73,15 @@ def register():
     else:
         flash("This username is taken")
         return redirect("/registration")
+
+@app.route("/profile/<string:username>",methods=["GET"])
+def profile(username):
+
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":username})
+    user = result.fetchone()
+
+    if not user:
+        return redirect("/")
+    else:
+        return render_template("profile.html")
