@@ -1,0 +1,18 @@
+{% if session.username %}
+    {% extends "layout.html" %}
+    {% block content %}
+    <p>List of movies</p>
+    {% endblock %}
+{% else %}
+    <h2>LOG IN</h2>
+    {% include "flashed_messages.html" %}
+    <form action="/login" method="POST">
+        <p>Tunnus:<br>
+        <input type="text" name="username"></p>
+        <p>Salasana:<br>
+        <input type="password" name="password"></p>
+        <input type="submit" value="Log in">
+    </form>
+    <br>
+    <a href="/registration">No account? Register!</a>
+{% endif %}
