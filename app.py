@@ -39,11 +39,12 @@ def login():
     else:
         hash_value = user.password
         if check_password_hash(hash_value, password):
-            # TODO: correct username and password
-            session["username"] = username
+            #correct username and password
+            session["username"] = user.username
+            session["id"] = user.id
             return redirect("/")
         else:
-            # TODO: invalid password
+            #invalid password
             flash("Invalid password or username")
             return redirect("/")
 
@@ -110,3 +111,8 @@ def movie(id):
     user = get_user(movie.user_id)
 
     return render_template("movie.html", movie = movie, user = user)
+
+@app.route("/add-movie",methods=["GET"])
+def add_movie():
+
+    return render_template("add_movie_form.html")

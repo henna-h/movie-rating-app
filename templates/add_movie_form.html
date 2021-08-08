@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h2>ADD A MOVIE</h2>
+    {% include "flashed_messages.html" %}
+    <br>
+    <form action="/" method="POST">
+        <p>Title: <input type="text" name="name"></p>
+        <p>Directed by: <input type="text" name="director"></p>
+        <p>Written by: <input type="text" name="director"></p>
+        <p>Year: <input type="number" name="year"></p>
+        <br>
+        <input type="submit" value="Add">
+    </form>
+    <br>
+    <a href="/">Already have an account? Log in!</a>
+
+    {% endblock %}

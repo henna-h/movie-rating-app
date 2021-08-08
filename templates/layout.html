@@ -2,8 +2,9 @@
 <h1>Movie Rating App</h1>
 
 <span>
-<a href="/">Home</a>
+    <a href="/">Home</a>
     <a href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
+    <a href= "/add-movie">Add a Movie</a>
     <a href="/logout">Log Out</a>
 </span>
 
