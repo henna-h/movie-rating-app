@@ -21,6 +21,8 @@ def index():
     movie_list = get_movie_list()
     return render_template("index.html", movies = movie_list)
 
+def setsession(id):
+    session['id'] = id
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -31,6 +33,7 @@ def login():
 
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
+    print(user)
 
     if not user:
         #invalid username
@@ -40,8 +43,7 @@ def login():
         hash_value = user.password
         if check_password_hash(hash_value, password):
             #correct username and password
-            session["username"] = user.username
-            session["id"] = user.id
+            setsession(user.id)
             return redirect("/")
         else:
             #invalid password
@@ -52,8 +54,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["username"]
-    del session["id"]
+    del session['id']
     return redirect("/")
 
 @app.route("/registration")
@@ -73,10 +74,17 @@ def register():
 
     if not usernameExists:
         hash_value = generate_password_hash(password)
+
         sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
-        session["username"] = username
+
+        sql = "SELECT id FROM users WHERE username=:username"
+        result =db.session.execute(sql, {"username":username})
+        db.session.commit()
+        user = result.fetchone()
+
+        setsession(user.id)
 
         return redirect("/")
     
