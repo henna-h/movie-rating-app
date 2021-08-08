@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>{{ movie.name }}</h2>
+    <p>Director: {{ movie.director }}</p>
+    <p>Written by: {{ movie.screenwriter }}</p>
+    <p>Cast: this will include a list of cast members</p>
+    <p>Synopsis: {{ movie.description }}</p>
+    <br>
+    <p>This movie was added to the database by <a href="{{ url_for('profile', username=user.username) }}">{{ user.username }}</a></p>
+{% endblock %}

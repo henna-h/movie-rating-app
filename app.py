@@ -15,6 +15,12 @@ def get_movie_list():
     result = db.session.execute(sql)
     return result.fetchall()
 
+def get_user(id):
+    sql = "SELECT id, username FROM users WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    user = result.fetchone()
+    return user
+
 @app.route("/")
 def index():
     movie_list = get_movie_list()
@@ -92,3 +98,15 @@ def profile(username):
         return redirect("/")
     else:
         return render_template("profile.html")
+
+@app.route("/movie/<int:id>",methods=["GET"])
+def movie(id):
+
+    sql = "SELECT * FROM movies WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    movie = result.fetchone()
+
+    user = get_user(movie.user_id)
+    print(user)
+
+    return render_template("movie.html", movie = movie, user = user)
