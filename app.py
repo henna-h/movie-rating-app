@@ -91,7 +91,7 @@ def register():
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
 
-        sql = "SELECT id FROM users WHERE username=:username"
+        sql = "SELECT * FROM users WHERE username=:username"
         result =db.session.execute(sql, {"username":username})
         db.session.commit()
         user = result.fetchone()
