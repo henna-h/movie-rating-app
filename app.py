@@ -113,6 +113,21 @@ def movie(id):
     return render_template("movie.html", movie = movie, user = user)
 
 @app.route("/add-movie",methods=["GET"])
-def add_movie():
+def add_movie_form():
 
     return render_template("add_movie_form.html")
+
+@app.route("/movie-added",methods=["POST"])
+def add_movie():
+
+    name = request.form["name"]
+    director = request.form["director"]
+    screenwriter = request.form["screenwriter"]
+    year = request.form["year"]
+    description = request.form["description"]
+
+    sql = "INSERT INTO movies (name, director, screenwriter, year, description) VALUES (:name, :director, :screenwriter, :year, :description)"
+    db.session.execute(sql, {"name":name, "director":director, "screenwriter":screenwriter, "year":year, "description":description})
+    db.session.commit()
+
+    return redirect("/")
