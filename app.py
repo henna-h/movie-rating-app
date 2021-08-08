@@ -9,9 +9,16 @@ app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 app.secret_key = getenv("SECRET_KEY")
 
+
+def get_movie_list():
+    sql = "SELECT * FROM movies"
+    result = db.session.execute(sql)
+    return result.fetchall()
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    movie_list = get_movie_list()
+    return render_template("index.html", movies = movie_list)
 
 
 @app.route("/login",methods=["POST"])

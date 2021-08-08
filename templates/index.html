@@ -2,6 +2,12 @@
     {% extends "layout.html" %}
     {% block content %}
     <p>List of movies</p>
+    <ul>
+        {% for movie in movies %}
+        <li> {{ movie.name }}</li>
+        {% endfor %}
+    </ul>
+        
     {% endblock %}
 {% else %}
     <h2>LOG IN</h2>
