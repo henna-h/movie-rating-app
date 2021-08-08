@@ -1,20 +1,21 @@
 # movie-rating-app
 
-Ominaisuudet:
+[Sovellus Herokussa](https://tsoha-movie-app.herokuapp.com/)
 
--Käyttäjä voi luoda tunnukset ja kirjautua sisään ja ulos.
+Elokuvien arvostelusovellus, jonne käyttäjät voivat lisätä elokuvia ja arvostella niitä.
 
--Käyttäjille voi myöntää moderaatio-oikeuksia.
+Tällä hetkellä sovelluksessa on toteutettu seuraavat ominaisuudet:
+    -Uuden käyttäjätunnuksen luonti
+    -Sisään ja uloskirjautuminen
+    -Uuden elokuvan lisääminen sivustolle
+    -Elokuvien listaaminen etusivulla
+    -Käyttäjä voi poistaa itse lisäämänsä elokuvan
+    -Jokaisella elokuvalla on oma sivunsa ja käyttäjillä oma profiilinsa, mutta näissä ei ole vielä listattu kaikkia tietoja
 
--Etusivulla lista kaikista sivustolle lisätyistä elokuvista. Listan voi järjestää elokuvan keskiarvosanan tai lisäyshetken mukaan.
-
--Elokuvan nimeä klikkaamalla pääsee sivulle, josta löytyvät elokuvan tiedot (nimi, julkaisuvuosi, tekijät ym.) sekä käyttäjien elokuvalle annetut arvostelut ja niiden keskiarvo.
--Sekä moderoijat että tavalliset käyttäjät voivat lisätä sivustolle elokuvia. Tavallisten käyttäjien lisäämät elokuvat tarvitsevat moderaattorin hyväksynnän näkyäkseen sivulla, moderaattoreiden lisäämät elokuvat taas näkyvät automattisesti. Elokuvan tietojen muokkaamiseen tarvitaan myös moderaattorin lupa.
-
--Moderaattorit voivat myös poistaa sivustolta elokuvia ja arvosteluja sekä estää käyttäjiä.
-
--Käyttäjät voivat arvostella elokuvia antamalla niille 1-5 tähteä sekä sanallisen arvostelun. Käyttäjä voi muokata kirjoittamaansa arvostelua tai poistaa sen.
-
--Käyttäjät voivat myös merkata elokuvia nähdyksi sekä lisätä niitä tulevaisuudessa katsottavien listalle.
-
--Jokaisella käyttäjällä on oma profiilisivu, jossa muut voivat vierailla. Profiilisivulla on käyttäjän käyttäjänimi, profiilikuva ja käyttäjän itsestään kirjoittama kuvaus. Profiilista löytyvät myös kaikki käyttäjän sivulle lisäämät arvostelut,elokuvat, nähdyt elokuvat ja elokuvat, jotka käyttäjä on lisännyt tulevaisuudessa katsottavien listalle.
+Seuraavat ominaisuudet ovat vielä tekemättä:
+    -Arvostelujen lisääminen ja niiden listaaminen kunkin elokuvan sivulla
+    -Moderaatio-oikeuksien toteuttaminen, joiden myötä kättäjien sivustolle lisäämät elokuvat tarvitsisivat moderaattorin hyväksynnän näkyäkseen sivustolla. Moderaattorit voisivat myös poistaa sivustolta elokuvia ja arvosteluja
+    -Mahdollisuus lisätä elokuville lista näyttelijöistä sekä elokuvaan liittyvä kuva
+    -Käyttäjille mahdollisuus lisätä profiilikuva sekä esittelyteksti ja näyttää ne profiilisivulla. Lisäksi profiilisivulle tulee lista käyttäjän sivustolle lisäämistä elokuvista ja arvosteluista
+    -Mahdollisuus järjestää etusivun elokuva lista joko lisäyshetken, julkaisuvuoden tai arvosanojen keskiarvon mukaan
+    -Ulkoasun muokkaaminen
