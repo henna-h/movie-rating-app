@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+
     <h2>{{ movie.name }}</h2>
     <p>Director: {{ movie.director }}</p>
     <p>Written by: {{ movie.screenwriter }}</p>
@@ -7,4 +8,12 @@
     <p>Synopsis: {{ movie.description }}</p>
     <br>
     <p>This movie was added to the database by <a href="{{ url_for('profile', username=user.username) }}">{{ user.username }}</a></p>
+    <br>
+
+    {% if session.id == user.id %}
+    <form action="{{ url_for('deletemovie', id=movie.id) }}" method="POST">
+        <input type="submit" value="Delete movie" />
+    </form>
+    {% endif %}
+
 {% endblock %}
