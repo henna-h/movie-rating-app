@@ -27,13 +27,13 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
 
-    sql = "SELECT id, password FROM users WHERE username=:username"
+    sql = "SELECT id, username, password FROM users WHERE username=:username"
 
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
 
     if not user:
-        # TODO: invalid username
+        #invalid username
         flash("Invalid password or username")
         return redirect("/")
     else:

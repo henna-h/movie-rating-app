@@ -4,7 +4,7 @@ CREATE TABLE movies (id SERIAL PRIMARY KEY, name TEXT UNIQUE, year INTEGER, dire
 
 CREATE TABLE cast_members(id SERIAL PRIMARY KEY, name TEXT);
 
-CREATE TABLE cast_members_of_a_movie(cast_member_id INTEGER REFERENCES cast_members, movie_id INTEGER REFERENCES movies)
+CREATE TABLE cast_members_of_a_movie(cast_member_id INTEGER REFERENCES cast_members, movie_id INTEGER REFERENCES movies);
 
 CREATE TABLE reviews (id SERIAL PRIMARY KEY, stars INTEGER, review TEXT, movie_id INTEGER REFERENCES movies, user_id INTEGER REFERENCES users);
 
