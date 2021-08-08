@@ -53,6 +53,7 @@ def login():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["id"]
     return redirect("/")
 
 @app.route("/registration")
@@ -125,9 +126,10 @@ def add_movie():
     screenwriter = request.form["screenwriter"]
     year = request.form["year"]
     description = request.form["description"]
+    user_id = session["id"]
 
-    sql = "INSERT INTO movies (name, director, screenwriter, year, description) VALUES (:name, :director, :screenwriter, :year, :description)"
-    db.session.execute(sql, {"name":name, "director":director, "screenwriter":screenwriter, "year":year, "description":description})
+    sql = "INSERT INTO movies (name, director, screenwriter, year, description, user_id) VALUES (:name, :director, :screenwriter, :year, :description, :user_id)"
+    db.session.execute(sql, {"name":name, "director":director, "screenwriter":screenwriter, "year":year, "description":description, "user_id":user_id})
     db.session.commit()
 
     return redirect("/")
