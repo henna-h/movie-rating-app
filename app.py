@@ -141,12 +141,13 @@ def add_movie():
     name = request.form["name"]
     director = request.form["director"]
     screenwriter = request.form["screenwriter"]
+    cast_members = request.form["cast"]
     year = request.form["year"]
     description = request.form["description"]
     user_id = session["id"]
 
-    sql = "INSERT INTO movies (name, director, screenwriter, year, description, user_id) VALUES (:name, :director, :screenwriter, :year, :description, :user_id)"
-    db.session.execute(sql, {"name":name, "director":director, "screenwriter":screenwriter, "year":year, "description":description, "user_id":user_id})
+    sql = "INSERT INTO movies (name, director, screenwriter, cast_members, year, description, user_id) VALUES (:name, :director, :screenwriter, :cast_members, :year, :description, :user_id)"
+    db.session.execute(sql, {"name":name, "director":director, "screenwriter":screenwriter, "cast_members":cast_members, "year":year, "description":description, "user_id":user_id})
     db.session.commit()
 
     return redirect("/")

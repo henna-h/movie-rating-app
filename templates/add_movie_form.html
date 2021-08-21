@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block content %}
+{% block page_content %}
 
     <h2>ADD A MOVIE</h2>
     {% include "flashed_messages.html" %}
@@ -8,6 +8,7 @@
         <p>Title: <input type="text" name="name"></p>
         <p>Directed by: <input type="text" name="director"></p>
         <p>Written by: <input type="text" name="screenwriter"></p>
+        <p>Cast: <input type="text" name="cast"></p>
         <p>Year: <input type="number" name="year"></p>
         <p>Synopsis: <textarea type="number" name="description"></textarea></p>
         <br>
