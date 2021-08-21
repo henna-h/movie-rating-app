@@ -5,9 +5,15 @@ from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
+app.secret_key = getenv("SECRET_KEY")
+
+import routes
+
+
+"""
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
-app.secret_key = getenv("SECRET_KEY")
+
 
 
 def get_movie_list():
@@ -200,3 +206,5 @@ def deletemovie(id):
     db.session.commit()
     flash("Deleted successfully")
     return redirect("/")
+
+"""
