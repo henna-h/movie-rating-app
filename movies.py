@@ -19,11 +19,17 @@ def get_average_rating(movie_id):
     return average
 
 def add_movie(name, director, screenwriter, cast_members, year, description, user_id):
+
     sql = "INSERT INTO movies (name, director, screenwriter, cast_members, year, description, user_id) VALUES (:name, :director, :screenwriter, :cast_members, :year, :description, :user_id)"
     db.session.execute(sql, {"name":name, "director":director, "screenwriter":screenwriter, "cast_members":cast_members, "year":year, "description":description, "user_id":user_id})
     db.session.commit()
 
 def delete_movie(id):
-    sql = "DELETE FROM movies WHERE id=:id"
-    db.session.execute(sql, {"id":id})
+
+    sqlReviews = "DELETE FROM reviews WHERE movie_id=:id"
+    db.session.execute(sqlReviews, {"id":id})
+    db.session.commit()
+    
+    sqlMovie = "DELETE FROM movies WHERE id=:id"
+    db.session.execute(sqlMovie, {"id":id})
     db.session.commit()
