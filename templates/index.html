@@ -1,24 +1,20 @@
-{% if session.id %}
-    {% extends "layout.html" %}
-    {% block content %}
-    <h2>MOVIES</h2>
-    <ul>
-        {% for movie in movies %}
-        <h3><a href="{{ url_for('movie', id=movie.id) }}"> {{ movie.name }}</a></h3>
-        {% endfor %}
-    </ul>
-        
+{% extends "head.html" %}
+    {% block body %}
+
+        {% if session.id %}
+        {% include "logged_in_view.html" %}
+        {% else %}
+            <h2>LOG IN</h2>
+            {% include "flashed_messages.html" %}
+            <form action="/login" method="POST">
+                <p>Username:<br>
+                <input type="text" name="username"></p>
+                <p>Password:<br>
+                <input type="password" name="password"></p>
+                <input type="submit" value="Log in">
+            </form>
+            <br>
+            <a href="/registration">No account? Register!</a>
+        {% endif %}
+
     {% endblock %}
-{% else %}
-    <h2>LOG IN</h2>
-    {% include "flashed_messages.html" %}
-    <form action="/login" method="POST">
-        <p>Tunnus:<br>
-        <input type="text" name="username"></p>
-        <p>Salasana:<br>
-        <input type="password" name="password"></p>
-        <input type="submit" value="Log in">
-    </form>
-    <br>
-    <a href="/registration">No account? Register!</a>
-{% endif %}

@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+    {% block page_content %}
+        <h2>MOVIES</h2>
+        <ul>
+            {% for movie in movies %}
+            <h3><a href="{{ url_for('movie', id=movie.id) }}"> {{ movie.name }}</a></h3>
+            {% endfor %}
+        </ul>
+        
+    {% endblock %}
