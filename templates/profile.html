@@ -2,4 +2,16 @@
 {% block page_content %}
     <h2>{{ user.username }}</h2>
     <p>This page will include more info about the user</p>
+
+    {% if reviewCount > 0 %}
+        <h3> {{ reviewCount }} reviews:</h3>
+        {% for r in reviews %}
+            <hr>
+            <p><a href="{{ url_for('movie', id=r.movie_id) }}">{{ get_movie(r.movie_id).name }}, {{ get_movie(r.movie_id).year }}</a></p>
+            <p> Stars: {{ r.stars }}</p>
+            <p>{{ r.review }}</p>
+
+        {% endfor %}
+    {% endif %}
+    <br>
 {% endblock %}

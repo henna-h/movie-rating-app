@@ -29,11 +29,26 @@ def get_user(id):
     user = result.fetchone()
     return user
 
+def get_movie(id):
+    sql = "SELECT * FROM movies WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    movie = result.fetchone()
+    return movie
+
+def get_average_rating(movie_id):
+    sql = "SELECT ROUND(AVG(stars), 1) FROM reviews WHERE movie_id=:id"
+    result = db.session.execute(sql, {"id":movie_id})
+    average = result.fetchone()[0]
+
+    return average
+
+
+
 
 @app.route("/")
 def index():
     movie_list = get_movie_list()
-    return render_template("index.html", movies = movie_list)
+    return render_template("index.html", movies = movie_list, get_average_rating = get_average_rating)
 
 
 @app.route("/login",methods=["POST"])
@@ -107,14 +122,23 @@ def register():
 @app.route("/profile/<string:username>",methods=["GET"])
 def profile(username):
 
-    sql = "SELECT id, username FROM users WHERE username=:username"
-    result = db.session.execute(sql, {"username":username})
-    user = result.fetchone()
+    sqlUser = "SELECT id, username FROM users WHERE username=:username"
+    resultUser = db.session.execute(sqlUser, {"username":username})
+    user = resultUser.fetchone()
 
     if not user:
         return redirect("/")
     else:
-        return render_template("profile.html", user = user)
+
+        sqlReviews = "SELECT * FROM reviews WHERE user_id=:user_id ORDER BY submitted_at DESC"
+        resultReviews = db.session.execute(sqlReviews, {"user_id":user.id})
+        reviews = resultReviews.fetchall()
+
+        sqlReviewCount = "SELECT COUNT(*) FROM reviews WHERE user_id=:user_id"
+        resultReviewCount = db.session.execute(sqlReviewCount, {"user_id":user.id})
+        reviewCount = resultReviewCount.fetchone()[0]
+
+        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviews, get_movie=get_movie)
 
 
 @app.route("/movie/<int:id>",methods=["GET"])
@@ -132,7 +156,7 @@ def movie(id):
     user = get_user(movie.user_id)
 
 
-    return render_template("movie.html", movie = movie, reviews = reviews, user = user, get_user=get_user)
+    return render_template("movie.html", movie = movie, reviews = reviews, user = user, get_user=get_user, get_average_rating = get_average_rating)
 
 @app.route("/add-movie",methods=["GET"])
 def add_movie_form():

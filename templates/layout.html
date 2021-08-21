@@ -1,14 +1,19 @@
-<h1>Movie Rating App</h1>
+{% extends "head.html" %}
+    {% block body %}
 
-<span>
-    <a href="/">Home</a>
-    <a href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
-    <a href= "/add-movie">Add a Movie</a>
-    <a href="/logout">Log Out</a>
-</span>
+        <h1>Movie Rating App</h1>
 
-<hr>
-{% include "flashed_messages.html" %}
-{% block page_content %}{% endblock %}
-<hr>
+        <span>
+            <a href="/">Home</a>
+            <a href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
+            <a href= "/add-movie">Add a Movie</a>
+            <a href="/logout">Log Out</a>
+        </span>
+
+        <hr>
+        {% include "flashed_messages.html" %}
+        {% block page_content %}{% endblock %}
+        <hr>
+
+{% endblock %}
 

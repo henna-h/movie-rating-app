@@ -1,20 +1,15 @@
-{% extends "head.html" %}
-    {% block body %}
-
-        {% if session.id %}
-            {% include "movie_list.html" %}
-        {% else %}
-            <h2>LOG IN</h2>
-            {% include "flashed_messages.html" %}
-            <form action="/login" method="POST">
-                <p>Username:<br>
-                <input type="text" name="username"></p>
-                <p>Password:<br>
-                <input type="password" name="password"></p>
-                <input type="submit" value="Log in">
-            </form>
-            <br>
-            <a href="/registration">No account? Register!</a>
-        {% endif %}
-
-    {% endblock %}
+{% if session.id %}
+    {% include "movie_list.html" %}
+{% else %}
+    <h2>LOG IN</h2>
+    {% include "flashed_messages.html" %}
+    <form action="/login" method="POST">
+        <p>Username:<br>
+        <input type="text" name="username"></p>
+        <p>Password:<br>
+        <input type="password" name="password"></p>
+        <input type="submit" value="Log in">
+    </form>
+    <br>
+    <a href="/registration">No account? Register!</a>
+{% endif %}
