@@ -38,3 +38,13 @@ CREATE TABLE reviews (
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE seen (
+    user_id INTEGER REFERENCES users,
+    movie_id INTEGER REFERENCES movies
+);
+
+CREATE TABLE to_be_seen (
+    user_id INTEGER REFERENCES users,
+    movie_id INTEGER REFERENCES movies
+);
+
