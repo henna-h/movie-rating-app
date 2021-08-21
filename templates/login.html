@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+    {% block body %}
+    <div class="row">
+        <div class="col text-center mt-5 mb-3">
+            <h2>LOG IN</h2>
+        </div>
+    </div>
+
+    {% include "flashed_messages.html" %}
+    <form action="/login" method="POST">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <p class="text-right">Username:
+                <input class="form-control" type="text" name="username"></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <p class="text-right">Password:
+                <input class="form-control" type="password" name="password"></p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col text-center mt-3">
+                <input class="btn btn-primary" type="submit" value="Log in">
+            </div>
+        </div>
+    </form>
+    
+    <div class="row">
+        <div class="col text-center my-3">
+            <a href="/registration">No account? Register!</a>
+        </div>
+    </div>
+    {% endblock %}

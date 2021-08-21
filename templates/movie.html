@@ -1,31 +1,98 @@
 {% extends "layout.html" %}
 {% block page_content %}
 
-    <h2>{{ movie.name }}, {{movie.year}}</h2>
-    <p>Director: {{ movie.director }}</p>
-    <p>Written by: {{ movie.screenwriter }}</p>
-    <p>Cast: this will include a list of cast members</p>
-    <p>Synopsis: {{ movie.description }}</p>
-    <br>
-    <h3>Add a review:</h3>
-    {% include "flashed_messages.html" %}
+<div class="row my-4 justify-content-between">
+    <div class="col-5">
+        <button class="btn btn-primary">Mark Movie as Seen</button>
+    </div>
+    <div class="col-4">
+        <button class="btn btn-primary">Watch Later</button>
+    </div>
+</div>
+
+    <div class="row my-4">
+        <div class="col text-center">
+            <h2>{{ movie.name }}, {{movie.year}}</h2>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col text-center">
+            <p>Director: {{ movie.director }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <p>Written by: {{ movie.screenwriter }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <p>Cast: {{ movie.cast_members }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <p>Synopsis: {{ movie.description }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center my-4">
+            <h3>Add a review:</h3>
+        </div>
+    </div>
+
     <form action="{{ url_for('add_review', movie_id=movie.id) }}" method="POST">
-        <p>Stars: <input type="number" name="stars"></p>
-        <p>Review: <textarea type="number" name="review"></textarea></p>
-        <br>
-        <input type="submit" value="Add">
+        <div class="row">
+            <div class="col-2 text-center">
+                <p>Stars:</p>
+            </div>
+            <div class="col-2 text-center">
+                <select class="form-select" type="number" name="stars">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 text-center">
+                <p>Review:</p>
+            </div>
+            <div class="col">
+                <textarea class="form-control" type="text" name="review"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center my-4">
+                <input class="btn btn-primary" type="submit" value="Add">
+            </div>
+        </div>
     </form>
+
 
     <br>
     {% if reviews %}
-        <h3>Average rating: {{ get_average_rating(movie.id) }}</h3>
-        <h2>Reviews:</h2>
+        <div class="row">
+            <div class="col text-center">
+                <h3>Average rating: {{ get_average_rating(movie.id) }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center my-4">
+                <h2>Reviews:</h2>
+            </div>
+        </div>
+
         {% for r in reviews %}
             <hr>
-                <p><a href="{{ url_for('profile', username=get_user(r.user_id).username) }}">{{ get_user(r.user_id).username }}</a></p>
-                <p> Stars: {{ r.stars }}</p>
-                <p>{{ r.review }}</p>
-            <hr>
+            <p> Stars: {{ r.stars }}</p>
+            <p>{{ r.review }}</p>
+            <p>by <a href="{{ url_for('profile', username=get_user(r.user_id).username) }}">{{ get_user(r.user_id).username }}</a></p>
+
         {% endfor %}
     {% else %}
         <br>
@@ -38,7 +105,7 @@
 
     {% if session.id == user.id %}
     <form action="{{ url_for('deletemovie', id=movie.id) }}" method="POST">
-        <input type="submit" value="Delete movie" />
+        <input class="btn btn-danger" type="submit" value="Delete movie" />
     </form>
     {% endif %}
 

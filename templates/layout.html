@@ -1,14 +1,25 @@
 {% extends "head.html" %}
     {% block body %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">Movie Rating App</h1>
+        </div>
+    </div>
 
-        <h1>Movie Rating App</h1>
-
-        <span>
+    <div class="row">
+        <div class="col text-center">
             <a href="/">Home</a>
+        </div>
+        <div class="col">
             <a href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
+        </div>
+        <div class="col text-center">
             <a href= "/add-movie">Add a Movie</a>
+        </div>
+        <div class="col text-center">
             <a href="/logout">Log Out</a>
-        </span>
+        </div>
+    </div>
 
         <hr>
         {% include "flashed_messages.html" %}

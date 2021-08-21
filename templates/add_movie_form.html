@@ -1,18 +1,27 @@
 {% extends "layout.html" %}
 {% block page_content %}
 
-    <h2>ADD A MOVIE</h2>
+    <div class="row">
+        <div class="col text-center">
+            <h2>ADD A MOVIE</h2>
+        </div>
+    </div>
+
     {% include "flashed_messages.html" %}
-    <br>
+
     <form action="/movie-added" method="POST">
-        <p>Title: <input type="text" name="name"></p>
-        <p>Directed by: <input type="text" name="director"></p>
-        <p>Written by: <input type="text" name="screenwriter"></p>
-        <p>Cast: <input type="text" name="cast"></p>
-        <p>Year: <input type="number" name="year"></p>
-        <p>Synopsis: <textarea type="number" name="description"></textarea></p>
-        <br>
-        <input type="submit" value="Add">
+        <p>Title: <input class="form-control" type="text" name="name"></p>
+        <p>Directed by: <input class="form-control" type="text" name="director"></p>
+        <p>Written by: <input class="form-control" type="text" name="screenwriter"></p>
+        <p>Cast: <input class="form-control" type="text" name="cast"></p>
+        <p>Year: <input class="form-control" type="number" name="year"></p>
+        <p>Synopsis: <textarea class="form-control" type="number" name="description"></textarea></p>
+        
+        <div class="row">
+            <div class="col text-center">
+                <input class="btn btn-primary" type="submit" value="Add">
+            </div>
+        </div>
     </form>
     <br>
 
