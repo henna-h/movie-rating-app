@@ -11,7 +11,7 @@ app.secret_key = getenv("SECRET_KEY")
 
 
 def get_movie_list():
-    sql = "SELECT * FROM movies"
+    sql = "SELECT * FROM movies ORDER BY submitted_at DESC"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -120,20 +120,37 @@ def profile(username):
 @app.route("/movie/<int:id>",methods=["GET"])
 def movie(id):
 
-    sql = "SELECT * FROM movies WHERE id=:id"
-    result = db.session.execute(sql, {"id":id})
-    movie = result.fetchone()
+    sqlMovie = "SELECT * FROM movies WHERE id=:id"
+    resultMovie = db.session.execute(sqlMovie, {"id":id})
+    movie = resultMovie.fetchone()
     print("movie.user_id"+ str(movie.user_id))
-    user = get_user(movie.user_id)
-    #print(session["id"])
-    #print(user.id)
 
-    return render_template("movie.html", movie = movie, user = user)
+    sqlReviews = "SELECT * FROM reviews WHERE movie_id=:movie_id ORDER BY submitted_at DESC"
+    resultReviews = db.session.execute(sqlReviews, {"movie_id":id})
+    reviews = resultReviews.fetchall()
+
+    user = get_user(movie.user_id)
+
+
+    return render_template("movie.html", movie = movie, reviews = reviews, user = user, get_user=get_user)
 
 @app.route("/add-movie",methods=["GET"])
 def add_movie_form():
 
     return render_template("add_movie_form.html")
+
+@app.route("/add-review/movie_id?<int:movie_id>",methods=["POST"])
+def add_review(movie_id):
+
+    stars = request.form["stars"]
+    review = request.form["review"]
+    user_id = session["id"]
+
+    sqlReview = "INSERT INTO reviews (stars, review, movie_id, user_id) VALUES (:stars, :review, :movie_id, :user_id)"
+    db.session.execute(sqlReview, {"stars":stars, "review":review, "movie_id":movie_id, "user_id":user_id})
+    db.session.commit()
+
+    return redirect(url_for("movie", id=movie_id))
 
 @app.route("/movie-added",methods=["POST"])
 def add_movie():

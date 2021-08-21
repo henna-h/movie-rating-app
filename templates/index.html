@@ -2,7 +2,7 @@
     {% block body %}
 
         {% if session.id %}
-        {% include "logged_in_view.html" %}
+            {% include "movie_list.html" %}
         {% else %}
             <h2>LOG IN</h2>
             {% include "flashed_messages.html" %}

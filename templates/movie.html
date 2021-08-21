@@ -7,8 +7,26 @@
     <p>Cast: this will include a list of cast members</p>
     <p>Synopsis: {{ movie.description }}</p>
     <br>
-    <p>Reviews:</p>
+    <h3>Add a review:</h3>
+    {% include "flashed_messages.html" %}
+    <form action="{{ url_for('add_review', movie_id=movie.id) }}" method="POST">
+        <p>Stars: <input type="number" name="stars"></p>
+        <p>Review: <textarea type="number" name="review"></textarea></p>
+        <br>
+        <input type="submit" value="Add">
+    </form>
+
     <br>
+    <h2>Reviews:</h2>
+    {% for r in reviews %}
+        <hr>
+            <p><a href="{{ url_for('profile', username=get_user(r.user_id).username) }}">{{ get_user(r.user_id).username }}</a></p>
+            <p> Stars: {{ r.stars }}</p>
+            <p>{{ r.review }}</p>
+        <hr>
+    {% endfor %}
+    <br>
+
     <p>This movie was added to the database by <a href="{{ url_for('profile', username=user.username) }}">{{ user.username }}</a></p>
     <br>
 

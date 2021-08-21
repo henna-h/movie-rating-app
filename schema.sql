@@ -34,6 +34,7 @@ CREATE TABLE reviews (
     stars INTEGER CHECK (stars BETWEEN 1 AND 5) NOT NULL, 
     review TEXT NOT NULL, 
     movie_id INTEGER REFERENCES movies, 
-    user_id INTEGER REFERENCES users)
-;
+    user_id INTEGER REFERENCES users,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
