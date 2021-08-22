@@ -14,4 +14,4 @@ Tällä hetkellä sovelluksessa on toteutettu seuraavat ominaisuudet:
 
     * Käyttäjä voi pitää listaa jo katsomistaan elokuvista ja niistä elokuvista, joita haluaa katsoa myöhemmin. Nämä listat sekä käyttäjän jättämät arvostelut näkyvät hänen profiilisivullaan
 
-Viimeistä palautusta varten lisään vielä validointeja lomakkeisiin ja muokkaan sivuston ulkoasua. Ajattelin myös lisätä käyttäjille mahdollisuuden lisätä profiilikuvan sekä kuhunkin elokuvaan liittyvän kuvan. Lisäksi CSRF-haavoittuvuus pitää vielä estää.
+HUOM! Syötteiden validointi on vielä puutteellista ja niitä olisi tarkoitus lisätä viimeistä palautusta varten. Sivuston ulkoasukin on vielä kesken. Ajattelin myös lisätä käyttäjille mahdollisuuden lisätä profiilikuvan sekä kuhunkin elokuvaan liittyvän kuvan ja mahdollisuuden muokata profiilikuvaustekstiä. Lisäksi CSRF-haavoittuvuus pitää vielä estää.
