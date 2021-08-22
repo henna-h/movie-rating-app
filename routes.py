@@ -83,10 +83,12 @@ def profile(username):
 
         reviewList = reviews.get_reviews_by_user(user.id)
         reviewCount = reviews.get_users_review_count(user.id)
-        MoviesSeenList = movies.get_users_seen_movies_list(user.id)
-        WatchLaterList = movies.get_users_watch_later_list(user.id)
+        moviesSeenList = movies.get_users_seen_movies_list(user.id)
+        watchLaterList = movies.get_users_watch_later_list(user.id)
+        moviesSeenCount = movies.get_seen_movies_count(user.id)
+        watchLaterCount = movies.get_watch_later_count(user.id)
 
-        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, MoviesSeenList = MoviesSeenList, WatchLaterList = WatchLaterList, get_user=users.get_user)
+        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, moviesSeenList = moviesSeenList, watchLaterList = watchLaterList, get_user=users.get_user, moviesSeenCount = moviesSeenCount, watchLaterCount = watchLaterCount)
 
 
 @app.route("/movie/<int:id>",methods=["GET"])

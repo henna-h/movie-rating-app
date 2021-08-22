@@ -91,3 +91,19 @@ def get_users_watch_later_list(user_id):
     movieList = result.fetchall()
 
     return movieList
+
+def get_seen_movies_count(user_id):
+    sql="SELECT COUNT(*) FROM movies_seen WHERE user_id=:user_id"
+    result =db.session.execute(sql, {"user_id":user_id})
+    result = db.session.execute(sql, {"user_id":user_id})
+    count = result.fetchone()[0]
+
+    return count
+
+def get_watch_later_count(user_id):
+    sql="SELECT COUNT(*) FROM watch_later WHERE user_id=:user_id"
+    result =db.session.execute(sql, {"user_id":user_id})
+    result = db.session.execute(sql, {"user_id":user_id})
+    count = result.fetchone()[0]
+
+    return count
