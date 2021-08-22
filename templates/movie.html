@@ -2,12 +2,36 @@
 {% block page_content %}
 
 <div class="row my-4 justify-content-between">
-    <div class="col-5">
-        <button class="btn btn-primary">Mark Movie as Seen</button>
-    </div>
-    <div class="col-4">
-        <button class="btn btn-primary">Watch Later</button>
-    </div>
+    {% if has_been_seen %}
+        <div class="col-5">
+            <form action="{{ url_for('unmark_as_seen', movie_id=movie.id) }}" method="POST">
+                <input type="submit" class="btn btn-danger" value="Unmark as Seen" />
+            </form>
+        </div>
+    {% elif is_in_watch_later_list %}
+        <div class="col-5">
+            <form action="{{ url_for('add_movie_to_seen_list', movie_id=movie.id) }}" method="POST">
+                <input type="submit" class="btn btn-primary" value="Mark Movie as Seen" />
+            </form>
+        </div>
+        <div class="col-4">
+            <form action="{{ url_for('remove_from_watch_later', movie_id=movie.id) }}" method="POST">
+                <input type="submit" class="btn btn-danger" value="Remove from Watch Later List" />
+            </form>
+        </div>
+
+    {% else %}
+        <div class="col-5">
+            <form action="{{ url_for('add_movie_to_seen_list', movie_id=movie.id) }}" method="POST">
+                <input type="submit" class="btn btn-primary" value="Mark Movie as Seen" />
+            </form>
+        </div>
+        <div class="col-5">
+            <form action="{{ url_for('add_to_watch_later', movie_id=movie.id) }}" method="POST">
+                <input type="submit" class="btn btn-primary" value="Watch Later" />
+            </form>
+        </div>
+    {% endif %}
 </div>
 
     <div class="row my-4">

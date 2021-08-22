@@ -52,17 +52,23 @@ def registration_form():
 def register():
     username = request.form["username"]
     password = request.form["password"]
+    password2 = request.form["password2"]
 
     usernameExists = users.get_user_by_username(username)
 
     if not usernameExists:
-        hash_value = generate_password_hash(password)
+        if password == password2:
 
-        user = users.register(username, hash_value)
+            hash_value = generate_password_hash(password)
 
-        users.set_session(user)
+            user = users.register(username, hash_value)
 
-        return redirect("/")
+            users.set_session(user)
+
+            return redirect("/")
+        else:
+            flash("Password fields must match")
+            return redirect("/registration")
     
     else:
         flash("This username is taken")
@@ -79,8 +85,10 @@ def profile(username):
 
         reviewList = reviews.get_reviews_by_user(user.id)
         reviewCount = reviews.get_users_review_count(user.id)
+        MoviesSeenList = movies.get_users_seen_movies_list(user.id)
+        WatchLaterList = movies.get_users_watch_later_list(user.id)
 
-        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie)
+        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, MoviesSeenList = MoviesSeenList, WatchLaterList = WatchLaterList)
 
 
 @app.route("/movie/<int:id>",methods=["GET"])
@@ -93,8 +101,13 @@ def movie(id):
 
     user = users.get_user(movie.user_id)
 
+    current_user_id = users.get_session_user_id()
 
-    return render_template("movie.html", movie = movie, reviews = reviewList, user = user, get_user=users.get_user, get_average_rating = movies.get_average_rating)
+    has_been_seen = movies.is_in_seen_list(current_user_id, id)
+
+    is_in_watch_later_list = movies.is_in_watch_later_list(current_user_id, id)
+
+    return render_template("movie.html", movie = movie, reviews = reviewList, user = user, get_user=users.get_user, get_average_rating = movies.get_average_rating, has_been_seen = has_been_seen, is_in_watch_later_list = is_in_watch_later_list)
 
 @app.route("/add-movie",methods=["GET"])
 def add_movie_form():
@@ -129,6 +142,43 @@ def add_movie():
 
 @app.route("/deletemovie/<int:id>",methods=["POST"])
 def deletemovie(id):
+
     movies.delete_movie(id)
     flash("Deleted successfully")
     return redirect("/")
+
+@app.route("/movie-seen/<int:movie_id>",methods=["POST"])
+def add_movie_to_seen_list(movie_id):
+
+    user_id = users.get_session_user_id()
+    movies.mark_movie_as_seen(user_id, movie_id)
+    flash("marked as seen")
+
+    return redirect(url_for("movie", id=movie_id))
+
+@app.route("/add-to-watch-later/<int:movie_id>",methods=["POST"])
+def add_to_watch_later(movie_id):
+
+    user_id = users.get_session_user_id()
+    movies.add_to_watch_later(user_id, movie_id)
+    flash("added to your watch later list")
+
+    return redirect(url_for("movie", id=movie_id))
+
+@app.route("/unmark-movie-as-seen/<int:movie_id>",methods=["POST"])
+def unmark_as_seen(movie_id):
+
+    user_id = users.get_session_user_id()
+    movies.delete_from_seen_list(user_id, movie_id)
+    flash("unmarked as seen")
+
+    return redirect(url_for("movie", id=movie_id))
+
+@app.route("/remove-from-watch-later/<int:movie_id>",methods=["POST"])
+def remove_from_watch_later(movie_id):
+
+    user_id = users.get_session_user_id()
+    movies.delete_from_watch_later_list(user_id, movie_id)
+    flash("removed from your watch later list")
+
+    return redirect(url_for("movie", id=movie_id))
