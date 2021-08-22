@@ -90,6 +90,14 @@ def profile(username):
 
         return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, moviesSeenList = moviesSeenList, watchLaterList = watchLaterList, get_user=users.get_user, moviesSeenCount = moviesSeenCount, watchLaterCount = watchLaterCount)
 
+@app.route("/add-description", methods=["POST"])
+def add_description():
+    description = request.form['description']
+    username = request.form['username']
+    users.add_description(username, description)
+    return redirect(url_for("profile", username=username))
+
+
 
 @app.route("/movie/<int:id>",methods=["GET"])
 def movie(id):

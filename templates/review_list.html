@@ -10,8 +10,8 @@
 
 {% for r in reviews %}
     <div class="row">
-        <div class="col d-flex justify-content-center my-3">
-            <div class="card" style="width: 18rem;">
+        <div class="col d-flex justify-content-center">
+            <div class="card mt-2" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title text-center"> Stars: {{ r.stars }}</h5>
 
@@ -30,6 +30,7 @@
             </div>
         </div>
     </div>
+ 
     {% endif %}
 
 {% endfor %}

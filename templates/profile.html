@@ -6,13 +6,32 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col">
-            {% if reviewCount > 0 %}
-                {% include "review_list.html" %}
+    <div class="row justify-content-center mb-5">
+        <div class="col text-center">
+            {% if user.description %}
+                <h5 class="text-bold">Description:</h5>
+                <p>{{ user.description }}</p>
+            {% elif user.username == session.username %}
+                <form action="/add-description", method="POST">
+                    <label class="form-label">Add a description</label>
+                    <textarea type="text" name="description" class="form-control"></textarea>
+                    <input type="hidden" name="username" value="{{ user.username}}" />
+                    <button type="submit" class="btn btn-primary mt-3">Add</button>
+                </form>
             {% endif %}
+
         </div>
-        <div class="col my-4 ml-3">
+    </div>
+
+
+
+    <div class="row d-flex justify-content-center">
+        {% if reviewCount > 0 %}
+            <div class="col text-center">
+                {% include "review_list.html" %}
+            </div>
+        {% endif %}
+        <div class="col my-4 ml-3 text-center">
             <h5> Movies Marked as Seen:</h5>
             {% if moviesSeenCount > 0 %}
                 {% for m in moviesSeenList %}
@@ -32,5 +51,6 @@
             {% endif %}
         </div>
     </div>
+
 
 {% endblock %}

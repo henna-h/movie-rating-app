@@ -21,7 +21,7 @@ def get_user(id):
     return user
 
 def get_user_by_username(username):
-    sql = "SELECT id, username, password FROM users WHERE username=:username"
+    sql = "SELECT id, username, description, password FROM users WHERE username=:username"
 
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
@@ -39,3 +39,8 @@ def register(username, hash_value):
     user = result.fetchone()
 
     return user
+
+def add_description(username, description):
+    sql = "UPDATE users SET description=:description WHERE username=:username"
+    db.session.execute(sql, {"description":description, "username":username})
+    db.session.commit()
