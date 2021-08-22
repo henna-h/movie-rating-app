@@ -3,7 +3,9 @@
       {% for message in messages %}
       <div class="row">
          <div class="col text-center">
-         <h3>{{ message }}</h3>
+            <div class="alert alert-primary" role="alert">
+               <h3>{{ message }}</h3>
+            </div>
         </div>
       </div>
       {% endfor %}

@@ -43,36 +43,34 @@ def logout():
     users.del_session()
     return redirect("/")
 
-@app.route("/registration")
-def registration_form():
-    return render_template("registration_form.html")
-
-
-@app.route("/register",methods=["POST"])
+@app.route("/register",methods=["GET","POST"])
 def register():
-    username = request.form["username"]
-    password = request.form["password"]
-    password2 = request.form["password2"]
-
-    usernameExists = users.get_user_by_username(username)
-
-    if not usernameExists:
-        if password == password2:
-
-            hash_value = generate_password_hash(password)
-
-            user = users.register(username, hash_value)
-
-            users.set_session(user)
-
-            return redirect("/")
-        else:
-            flash("Password fields must match")
-            return redirect("/registration")
-    
+    if request.method == "GET":
+        return render_template("registration_form.html")
     else:
-        flash("This username is taken")
-        return redirect("/registration")
+        username = request.form["username"]
+        password = request.form["password"]
+        password2 = request.form["password2"]
+
+        usernameExists = users.get_user_by_username(username)
+
+        if not usernameExists:
+            if password == password2:
+
+                hash_value = generate_password_hash(password)
+
+                user = users.register(username, hash_value)
+
+                users.set_session(user)
+
+                return redirect("/")
+            else:
+                flash("Password fields must match")
+                return redirect("/register")
+        
+        else:
+            flash("This username is taken")
+            return redirect("/register")
 
 @app.route("/profile/<string:username>",methods=["GET"])
 def profile(username):
@@ -88,7 +86,7 @@ def profile(username):
         MoviesSeenList = movies.get_users_seen_movies_list(user.id)
         WatchLaterList = movies.get_users_watch_later_list(user.id)
 
-        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, MoviesSeenList = MoviesSeenList, WatchLaterList = WatchLaterList)
+        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, MoviesSeenList = MoviesSeenList, WatchLaterList = WatchLaterList, get_user=users.get_user)
 
 
 @app.route("/movie/<int:id>",methods=["GET"])
@@ -107,12 +105,27 @@ def movie(id):
 
     is_in_watch_later_list = movies.is_in_watch_later_list(current_user_id, id)
 
-    return render_template("movie.html", movie = movie, reviews = reviewList, user = user, get_user=users.get_user, get_average_rating = movies.get_average_rating, has_been_seen = has_been_seen, is_in_watch_later_list = is_in_watch_later_list)
+    reviewCount = reviews.get_movies_review_count(id)
 
-@app.route("/add-movie",methods=["GET"])
-def add_movie_form():
+    return render_template("movie.html", movie = movie, reviews = reviewList, user = user, get_user=users.get_user, get_average_rating = movies.get_average_rating, has_been_seen = has_been_seen, is_in_watch_later_list = is_in_watch_later_list, reviewCount = reviewCount)
 
-    return render_template("add_movie_form.html")
+@app.route("/add-movie",methods=["GET", "POST"])
+def add_movie():
+    if request.method == "GET":
+        return render_template("add_movie_form.html")
+    else:
+        name = request.form["name"]
+        director = request.form["director"]
+        screenwriter = request.form["screenwriter"]
+        cast_members = request.form["cast"]
+        year = request.form["year"]
+        description = request.form["description"]
+        user_id = users.get_session_user_id()
+
+        movies.add_movie(name, director, screenwriter, cast_members, year, description, user_id)
+
+        return redirect("/")
+
 
 @app.route("/add-review/movie_id?<int:movie_id>",methods=["POST"])
 def add_review(movie_id):
@@ -125,26 +138,19 @@ def add_review(movie_id):
 
     return redirect(url_for("movie", id=movie_id))
 
-@app.route("/movie-added",methods=["POST"])
-def add_movie():
 
-    name = request.form["name"]
-    director = request.form["director"]
-    screenwriter = request.form["screenwriter"]
-    cast_members = request.form["cast"]
-    year = request.form["year"]
-    description = request.form["description"]
-    user_id = users.get_session_user_id()
-
-    movies.add_movie(name, director, screenwriter, cast_members, year, description, user_id)
-
-    return redirect("/")
-
-@app.route("/deletemovie/<int:id>",methods=["POST"])
-def deletemovie(id):
+@app.route("/delete-movie/<int:id>",methods=["POST"])
+def delete_movie(id):
 
     movies.delete_movie(id)
     flash("Deleted successfully")
+    return redirect("/")
+
+@app.route("/delete-review/<int:id>",methods=["POST"])
+def delete_review(id):
+
+    reviews.delete_review(id)
+    flash("Review deleted successfully")
     return redirect("/")
 
 @app.route("/movie-seen/<int:movie_id>",methods=["POST"])

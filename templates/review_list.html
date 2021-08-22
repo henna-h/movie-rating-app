@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col text-center my-4">
+        {% if reviewCount > 1 %}
+            <h2>{{ reviewCount }} reviews:</h2>
+        {% else %}
+            <h2>1 review:</h2>
+         {% endif %}
+    </div>
+</div>
+
+{% for r in reviews %}
+    <div class="row">
+        <div class="col d-flex justify-content-center my-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-center"> Stars: {{ r.stars }}</h5>
+
+                    <p class="card-text text-center">{{ r.review }}</p>
+                    <p class="text-center">by <a href="{{ url_for('profile', username=get_user(r.user_id).username) }}" class="card-link">{{ get_user(r.user_id).username }}</a></p>
+
+                    {% if r.user_id == session.id %}
+                    <div class="row">
+                        <div class="col text-center">
+                            <form action="{{ url_for('delete_review', id=r.id) }}" method="POST">
+                                <input class="btn btn-danger btn-sm" type="submit" value="Delete" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endfor %}

@@ -1,30 +1,25 @@
 {% extends "layout.html" %}
 {% block page_content %}
-    <h1>{{ user.username }}</h1>
+    <div class="row justify-content-center mb-5">
+        <div class="col text-center">
+            <h1>{{ user.username }}</h1>
+        </div>
+    </div>
 
     <div class="row justify-content-center">
         <div class="col">
             {% if reviewCount > 0 %}
-                <h3> {{ reviewCount }} reviews:</h3>
-                {% for r in reviews %}
-                    <hr>
-                    <p><a href="{{ url_for('movie', id=r.movie_id) }}">{{ get_movie(r.movie_id).name }}, {{ get_movie(r.movie_id).year }}</a></p>
-                    <p> Stars: {{ r.stars }}</p>
-                    <p>{{ r.review }}</p>
-                {% endfor %}
+                {% include "review_list.html" %}
             {% endif %}
         </div>
         <div class="col">
-            <h3> Movies Market as Seen</h3>
+            <h3> Movies Marked as Seen:</h3>
             {% for m in MoviesSeenList %}
-                <hr>
                 <p><a href="{{ url_for('movie', id=m.movie_id) }}">{{ get_movie(m.movie_id).name }}, {{ get_movie(m.movie_id).year }}</a></p>
             {% endfor %}
-        </div>
-        <div class="col">
-            <h3>Watch Later List</h3>
+
+            <h3>Watch Later List:</h3>
             {% for m in WatchLaterList %}
-                <hr>
                 <p><a href="{{ url_for('movie', id=m.movie_id) }}">{{ get_movie(m.movie_id).name }}, {{ get_movie(m.movie_id).year }}</a></p>
             {% endfor %}
         </div>

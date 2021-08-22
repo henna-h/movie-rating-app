@@ -6,29 +6,12 @@ Elokuvien arvostelusovellus, jonne käyttäjät voivat lisätä elokuvia ja arvo
 
 Tällä hetkellä sovelluksessa on toteutettu seuraavat ominaisuudet:
 
-    * Uuden käyttäjätunnuksen luonti
-
-    * Sisään ja uloskirjautuminen
+    * Rekisteröinti ja sisään- ja uloskirjautuminen
 
     * Uuden elokuvan lisääminen sivustolle
 
-    * Elokuvien listaaminen etusivulla
+    * Arvostelun jättäminen
 
-    * Käyttäjä voi poistaa itse lisäämänsä elokuvan
+    * Käyttäjä voi pitää listaa jo katsomistaan elokuvista ja niistä elokuvista, joita haluaa katsoa myöhemmin. Nämä listat sekä käyttäjän jättämät arvostelut näkyvät hänen profiilisivullaan
 
-    * Jokaisella elokuvalla on oma sivunsa ja käyttäjillä oma profiilinsa, mutta näissä ei ole vielä listattu kaikkia tietoja
-
-
-Seuraavat ominaisuudet ovat vielä tekemättä:
-
-    * Arvostelujen lisääminen ja niiden listaaminen kunkin elokuvan sivulla
-
-    * Moderaatio-oikeuksien toteuttaminen, joiden myötä kättäjien sivustolle lisäämät elokuvat tarvitsisivat moderaattorin hyväksynnän näkyäkseen sivustolla. Moderaattorit voisivat myös poistaa sivustolta elokuvia ja arvosteluja
-
-    * Mahdollisuus lisätä elokuville lista näyttelijöistä sekä elokuvaan liittyvä kuva
-
-    * Käyttäjille mahdollisuus lisätä profiilikuva sekä esittelyteksti ja näyttää ne profiilisivulla. Lisäksi profiilisivulle tulee lista käyttäjän sivustolle lisäämistä elokuvista ja arvosteluista
-
-    * Mahdollisuus järjestää etusivun elokuva lista joko lisäyshetken, julkaisuvuoden tai arvosanojen keskiarvon mukaan
-
-    * Ulkoasun muokkaaminen
+Sivuston ulkoasu on vielä kesken. Ajattelin myös lisätä käyttäjille mahdollisuuden lisätä profiilikuvan sekä kuhunkin elokuvaan liittyvän kuvan. Lisäksi CSRF-haavoittuvuus pitää vielä estää.

@@ -17,18 +17,6 @@ CREATE TABLE movies (
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-/*
-CREATE TABLE cast_members(
-    id SERIAL PRIMARY KEY, 
-    name TEXT
-);
-
-CREATE TABLE cast_members_of_a_movie(
-    cast_member_id INTEGER REFERENCES cast_members, 
-    movie_id INTEGER REFERENCES movies
-);
-*/
-
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY, 
     stars INTEGER CHECK (stars BETWEEN 1 AND 5) NOT NULL, 

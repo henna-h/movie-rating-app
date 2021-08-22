@@ -1,29 +1,31 @@
 {% extends "head.html" %}
     {% block body %}
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <h1 class="text-center">Movie Rating App</h1>
-        </div>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-light d-flex align-items-center mb-5">
+          <a class="navbar-brand font-weight-bold" href="/">Movie Rating App</a>
+            <ul class="navbar-nav">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"  href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"  href= "/add-movie">Add a Movie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"  href="/logout">Log Out</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-    <div class="row">
-        <div class="col text-center">
-            <a href="/">Home</a>
-        </div>
-        <div class="col">
-            <a href= "{{ url_for('profile', username=session.username) }}">{{ session.username }}</a>
-        </div>
-        <div class="col text-center">
-            <a href= "/add-movie">Add a Movie</a>
-        </div>
-        <div class="col text-center">
-            <a href="/logout">Log Out</a>
-        </div>
-    </div>
-
-        <hr>
         {% include "flashed_messages.html" %}
-        {% block page_content %}{% endblock %}
+        <div class="container">
+
+            {% block page_content %}{% endblock %}
+ 
+        </div>
+
         <hr>
 
 {% endblock %}
