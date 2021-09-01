@@ -16,7 +16,11 @@
                     <h5 class="card-title text-center"> Stars: {{ r.stars }}</h5>
 
                     <p class="card-text text-center">{{ r.review }}</p>
-                    <p class="text-center">by <a href="{{ url_for('profile', username=get_user(r.user_id).username) }}" class="card-link">{{ get_user(r.user_id).username }}</a></p>
+                    {% if profile %}
+                        <a href="{{ url_for('movie', id=r.movie_id) }}" class="card-link">{{ get_movie(r.movie_id).name }}</a>
+                    {% else %}
+                        <p class="text-center">by <a href="{{ url_for('profile', username=get_user(r.user_id).username) }}" class="card-link">{{ get_user(r.user_id).username }}</a></p>
+                    {% endif %}
 
                     {% if r.user_id == session.id %}
                     <div class="row">

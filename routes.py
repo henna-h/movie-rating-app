@@ -87,8 +87,9 @@ def profile(username):
         watchLaterList = movies.get_users_watch_later_list(user.id)
         moviesSeenCount = movies.get_seen_movies_count(user.id)
         watchLaterCount = movies.get_watch_later_count(user.id)
+        profile =True
 
-        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, moviesSeenList = moviesSeenList, watchLaterList = watchLaterList, get_user=users.get_user, moviesSeenCount = moviesSeenCount, watchLaterCount = watchLaterCount)
+        return render_template("profile.html", user = user, reviewCount=reviewCount, reviews = reviewList, get_movie=movies.get_movie, moviesSeenList = moviesSeenList, watchLaterList = watchLaterList, get_user=users.get_user, moviesSeenCount = moviesSeenCount, watchLaterCount = watchLaterCount, profile=profile)
 
 @app.route("/add-description", methods=["POST"])
 def add_description():
