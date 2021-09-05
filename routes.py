@@ -54,12 +54,16 @@ def register():
 
         usernameExists = users.get_user_by_username(username)
 
-        if len(username) > 50:
+        if not username:
+            flash("Must include a username")
+            return redirect("/register")
+            
+        elif len(username) > 50:
             flash("Username must be under 50 characters")
             return redirect("/register")
 
         elif len(password) < 8:
-            flash("Password must be atleast 8 characters")
+            flash("Password must be at least 8 characters long")
             return redirect("/register")
 
         elif not usernameExists:
@@ -150,17 +154,33 @@ def add_movie():
         if len(name) > 300:
             flash("Title of the movie must be less than 300 characters long")
             return redirect("/add-movie")
+        
+        elif not name:
+            flash("Must include a title")
+            return redirect("/add-movie")
 
         elif len(director) > 300:
             flash("Name of the director must be less than 300 characters long")
+            return redirect("/add-movie")
+        
+        elif not director:
+            flash("Must include name of director")
             return redirect("/add-movie")
 
         elif len(screenwriter) > 300:
             flash("Name of the screenwriter must be less than 300 characters long")
             return redirect("/add-movie")
 
+        elif not screenwriter:
+            flash("Must include name of screenwriter")
+            return redirect("/add-movie")
+
         elif len(cast_members) > 1000:
             flash("List of cast members must be less than 1000 characters long")
+            return redirect("/add-movie")
+
+        elif not cast_members:
+            flash("Must include a list of cast members")
             return redirect("/add-movie")
 
         elif (int(year) < 0) or (int(year) > 3000):
@@ -169,6 +189,10 @@ def add_movie():
 
         elif len(description) > 1000:
             flash("Synopsis must be less than 1000 characters long")
+            return redirect("/add-movie")
+
+        elif not description:
+            flash("Must include a synopsis")
             return redirect("/add-movie")
 
         else:
@@ -187,6 +211,11 @@ def add_review(movie_id):
     if len(review) > 1000:
         flash("Review must be less than 1000 characters long")
         return redirect(url_for("movie", id=movie_id))
+
+    elif not review:
+        flash("Must include a review")
+        return redirect(url_for("movie", id=movie_id))
+
 
     else:
         reviews.add_review(stars, review, user_id, movie_id)
