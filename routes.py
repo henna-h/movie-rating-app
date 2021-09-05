@@ -226,7 +226,7 @@ def add_review(movie_id):
 def delete_movie(id):
 
     movies.delete_movie(id)
-    flash("Deleted successfully")
+    flash("Movie deleted successfully")
     return redirect("/")
 
 @app.route("/delete-review/<int:id>",methods=["POST"])

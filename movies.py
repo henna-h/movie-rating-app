@@ -29,7 +29,7 @@ def delete_movie(id):
 
     sqlReviews = "DELETE FROM reviews WHERE movie_id=:id"
     db.session.execute(sqlReviews, {"id":id})
-    db.session.commit()
+    #db.session.commit()
 
     sqlMovie = "DELETE FROM movies WHERE id=:id"
     db.session.execute(sqlMovie, {"id":id})
