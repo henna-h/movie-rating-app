@@ -21,6 +21,9 @@
                 <input class="form-control" type="password" name="password"></p>
             </div>
         </div>
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
         <div class="row justify-content-left">
             <div class="col text-center mt-3">
                 <input class="btn btn-primary" type="submit" value="Log in">

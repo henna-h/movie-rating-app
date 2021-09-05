@@ -54,7 +54,15 @@ def register():
 
         usernameExists = users.get_user_by_username(username)
 
-        if not usernameExists:
+        if len(username) > 50:
+            flash("Username must be under 50 characters")
+            return redirect("/register")
+
+        elif len(password) < 8:
+            flash("Password must be atleast 8 characters")
+            return redirect("/register")
+
+        elif not usernameExists:
             if password == password2:
 
                 hash_value = generate_password_hash(password)
@@ -95,8 +103,14 @@ def profile(username):
 def add_description():
     description = request.form['description']
     username = request.form['username']
-    users.add_description(username, description)
-    return redirect(url_for("profile", username=username))
+
+    if description > 1000:
+        flash("description must be less than 1000 characters long")
+        return redirect(url_for("profile", username=username))
+
+    else:
+        users.add_description(username, description)
+        return redirect(url_for("profile", username=username))
 
 
 
@@ -133,9 +147,34 @@ def add_movie():
         description = request.form["description"]
         user_id = users.get_session_user_id()
 
-        movies.add_movie(name, director, screenwriter, cast_members, year, description, user_id)
+        if len(name) > 300:
+            flash("Title of the movie must be less than 300 characters long")
+            return redirect("/add-movie")
 
-        return redirect("/")
+        elif len(director) > 300:
+            flash("Name of the director must be less than 300 characters long")
+            return redirect("/add-movie")
+
+        elif len(screenwriter) > 300:
+            flash("Name of the screenwriter must be less than 300 characters long")
+            return redirect("/add-movie")
+
+        elif len(cast_members) > 1000:
+            flash("List of cast members must be less than 1000 characters long")
+            return redirect("/add-movie")
+
+        elif (int(year) < 0) or (int(year) > 3000):
+            flash("You must give a valid year")
+            return redirect("/add-movie")
+
+        elif len(description) > 1000:
+            flash("Synopsis must be less than 1000 characters long")
+            return redirect("/add-movie")
+
+        else:
+            movies.add_movie(name, director, screenwriter, cast_members, year, description, user_id)
+
+            return redirect("/")
 
 
 @app.route("/add-review/movie_id?<int:movie_id>",methods=["POST"])
@@ -145,9 +184,13 @@ def add_review(movie_id):
     review = request.form["review"]
     user_id = users.get_session_user_id()
 
-    reviews.add_review(stars, review, user_id, movie_id)
+    if len(review) > 1000:
+        flash("Review must be less than 1000 characters long")
+        return redirect(url_for("movie", id=movie_id))
 
-    return redirect(url_for("movie", id=movie_id))
+    else:
+        reviews.add_review(stars, review, user_id, movie_id)
+        return redirect(url_for("movie", id=movie_id))
 
 
 @app.route("/delete-movie/<int:id>",methods=["POST"])

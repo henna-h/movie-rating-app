@@ -29,6 +29,8 @@
             </div>
         </div>
 
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <div class="row justify-content-center">
             <div class="col text-center">
                 <input class="btn btn-primary" type="submit" value="Create an account">

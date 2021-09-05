@@ -94,6 +94,9 @@
                 <textarea class="form-control" type="text" name="review"></textarea>
             </div>
         </div>
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
         <div class="row">
             <div class="col text-center my-4">
                 <input class="btn btn-primary" type="submit" value="Add">
