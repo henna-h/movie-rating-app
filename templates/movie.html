@@ -5,17 +5,20 @@
     {% if has_been_seen %}
         <div class="text-left">
             <form action="{{ url_for('unmark_as_seen', movie_id=movie.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="submit" class="btn btn-danger btn-sm" value="Unmark as Seen" />
             </form>
         </div>
     {% elif is_in_watch_later_list %}
         <div class=" col text-left">
             <form action="{{ url_for('add_movie_to_seen_list', movie_id=movie.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="submit" class="btn btn-primary btn-sm" value="Mark Movie as Seen" />
             </form>
         </div>
         <div class="col text-right">
             <form action="{{ url_for('remove_from_watch_later', movie_id=movie.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="submit" class="btn btn-danger btn-sm" value="Remove from Watch Later List" />
             </form>
         </div>
@@ -23,11 +26,13 @@
     {% else %}
         <div class="col text-left">
             <form action="{{ url_for('add_movie_to_seen_list', movie_id=movie.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="submit" class="btn btn-primary btn-sm" value="Mark Movie as Seen" />
             </form>
         </div>
         <div class="col text-right">
             <form action="{{ url_for('add_to_watch_later', movie_id=movie.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="submit" class="btn btn-primary btn-sm" value="Watch Later" />
             </form>
         </div>
@@ -96,7 +101,7 @@
         </div>
 
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        
+
         <div class="row">
             <div class="col text-center my-4">
                 <input class="btn btn-primary" type="submit" value="Add">
@@ -126,6 +131,7 @@
 
     {% if session.id == user.id %}
     <form action="{{ url_for('delete_movie', id=movie.id) }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input class="btn btn-danger" type="submit" value="Delete movie" />
     </form>
     {% endif %}
