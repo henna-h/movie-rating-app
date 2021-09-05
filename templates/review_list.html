@@ -26,6 +26,7 @@
                     <div class="row">
                         <div class="col text-center">
                             <form action="{{ url_for('delete_review', id=r.id) }}" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input class="btn btn-danger btn-sm" type="submit" value="Delete" />
                             </form>
                         </div>
