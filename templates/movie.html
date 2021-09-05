@@ -130,10 +130,14 @@
     </div>
 
     {% if session.id == user.id %}
-    <form action="{{ url_for('delete_movie', id=movie.id) }}" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input class="btn btn-danger" type="submit" value="Delete movie" />
-    </form>
+    <div class="row">
+        <div class="col text-center mt-5">
+            <form action="{{ url_for('delete_movie', id=movie.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input class="btn btn-danger" type="submit" value="Delete movie" />
+            </form>
+        </div>
+    </div>
     {% endif %}
 
 {% endblock %}
