@@ -1,16 +1,17 @@
 # movie-rating-app
 
-[Sovellus Herokussa](https://tsoha-movie-app.herokuapp.com/)
+[View app on Heroku](https://tsoha-movie-app.herokuapp.com/)
 
-Elokuvien arvostelusovellus, jonne käyttäjät voivat lisätä elokuvia ja arvostella niitä.
 
-Sovelluksessa on toteutettu seuraavat ominaisuudet:
+This is a simple app for listing movies and rating them. It was an assignment for a database application course by the University of Helsinki (aineopintojen harjoitustyö: tietokantasovellus).
 
-    * Rekisteröinti ja sisään- ja uloskirjautuminen
+The application consists of the following features:
 
-    * Uuden elokuvan lisääminen sivustolle
+    * Registration and logging in and out
 
-    * Arvostelun jättäminen
+    * Adding new movies to the database
 
-    * Käyttäjä voi pitää listaa jo katsomistaan elokuvista ja niistä elokuvista, joita haluaa katsoa myöhemmin. Nämä listat sekä käyttäjän jättämät arvostelut näkyvät hänen profiilisivullaan
+    * Leaving reviews
+
+    * The user can mark movies as seen or add them to a to be seen list
 
